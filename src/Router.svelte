@@ -8,6 +8,7 @@
   import Promises from "./pages/Promises.svelte";
   import State from "./pages/State.svelte";
   import Bindings from "./pages/Bindings.svelte";
+  import Options from "./pages/Options.svelte";
 
   let app: typeof SvelteComponent;
   page("/", () => (app = Home));
@@ -15,6 +16,7 @@
   page("/list", () => (app = List));
   page("/promises", () => (app = Promises));
   page("/bindings", () => (app = Bindings));
+  page("/options", () => (app = Options));
 
   page.start();
 </script>

@@ -7,6 +7,7 @@
     { name: "List", path: "/list" },
     { name: "Promises", path: "/promises" },
     { name: "Bindings", path: "/bindings" },
+    { name: "Options", path: "/options" },
   ];
 
   const handleClick = (to: string) => page(to);

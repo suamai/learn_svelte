@@ -1,11 +1,17 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require("path");
-const sveltePreprocess = require("svelte-preprocess");
+import type webpack from "webpack";
+import path from "path";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import sveltePreprocess from "svelte-preprocess";
+import TerserPlugin from "terser-webpack-plugin";
 
-const mode = process.env.NODE_ENV || "development";
+import "webpack-dev-server";
+
+const mode = (process.env.NODE_ENV || "development") as
+  | "production"
+  | "development";
 const prod = mode === "production";
 
-module.exports = {
+const config: webpack.Configuration = {
   entry: {
     "build/bundle": ["./src/main.ts"],
   },
@@ -21,6 +27,10 @@ module.exports = {
     filename: "[name].js",
     chunkFilename: "[name].[id].js",
   },
+  optimization: {
+    minimize: prod,
+    minimizer: [new TerserPlugin()],
+  },
   module: {
     rules: [
       {
@@ -35,6 +45,7 @@ module.exports = {
           options: {
             compilerOptions: {
               dev: !prod,
+              immutable: true,
             },
             emitCss: prod,
             hotReload: !prod,
@@ -75,3 +86,5 @@ module.exports = {
     },
   },
 };
+
+export default config;
